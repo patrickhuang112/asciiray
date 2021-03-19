@@ -1,5 +1,5 @@
-#include "vec3.h";
-#include <cmath>;
+#include "vec3.h"
+#include <cmath>
 
 
 inline float sqr(float v)
@@ -7,9 +7,13 @@ inline float sqr(float v)
 	return v * v;
 }
 
-float x = 0;
-float y = 0;
-float z = 0;
+vec3::vec3() 
+{
+	this->x = 0.0f;
+	this->y = 0.0f;
+	this->z = 0.0f;
+}
+
 vec3::vec3(float x, float y, float z)
 {
 	this->x = x;
@@ -17,12 +21,19 @@ vec3::vec3(float x, float y, float z)
 	this->z = z;
 }
 
-vec3 vec3::operator + (vec3 vec) const
+vec3::vec3(const vec3 &vec)
+{
+	this->x = vec.x;
+	this->y = vec.y;
+	this->z = vec.z;
+}
+
+vec3 vec3::operator + (const vec3 &vec) const
 {
 	return vec3(this->x + vec.x, this->y + vec.y, this->z + vec.z);
 }
 
-vec3 vec3::operator - (vec3 vec) const
+vec3 vec3::operator - (const vec3 &vec) const
 {
 	return vec3(this->x - vec.x, this->y - vec.y, this->z - vec.z);
 }
@@ -34,7 +45,7 @@ vec3 vec3::operator * (float scale) const
 }
 
 // Dot product
-float vec3::operator * (vec3 vec) const
+float vec3::operator * (const vec3 &vec) const
 {
 	return this->x * vec.x + this->y * vec.y + this->z * vec.z;
 }
@@ -69,21 +80,21 @@ vec3 vec3::normalized()
 	return vec3((*this) / mag);
 }
 
-void vec3::operator = (vec3 vec)
+void vec3::operator = (const vec3 &vec)
 {
 	this->x = vec.x;
 	this->y = vec.y;
 	this->z = vec.z;
 }
 
-void vec3::operator +=(vec3 vec)
+void vec3::operator +=(const vec3 &vec)
 {
 	this->x += vec.x;
 	this->y += vec.y;
 	this->z += vec.z;
 }
 
-void vec3::operator -= (vec3 vec)
+void vec3::operator -= (const vec3 &vec)
 {
 	this->x -= vec.x;
 	this->y -= vec.y;
@@ -97,16 +108,14 @@ void vec3::operator *= (float scale)
 	this->z *= scale;
 }
 
-void vec3::operator /= (float scale);
+void vec3::operator /= (float scale)
 {
 	this->x /= scale;
 	this->y /= scale;
 	this->z /= scale;
 }
 
-void vec3::operator -() const
+vec3 vec3::operator -() const
 {
-	this->x = -(this->x);
-	this->y = -(this->y);
-	this->z = -(this->z);
+	return vec3(-(this->x), -(this->y), -(this->z));
 }
